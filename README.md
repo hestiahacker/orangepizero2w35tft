@@ -17,13 +17,14 @@ sudo mv ./99-fbdev.conf /usr/share/X11/xorg.conf.d
 cp /etc/armbian-release /etc/orangepi-release
 git clone https://github.com/orangepi-xunlong/orangepi-build
 cp orangepi-build/external/packages/bsp/common/usr/sbin/orangepi-add-overlay /usr/sbin/
+sudo cp /boot/armbianEnv.txt /boot/orangepiEnv.txt
 
 sudo orangepi-add-overlay ./joyit35a-overlay.dts
-sudo cp /boot/orangepiEnv.txt /boot/armbianEnv.txt  # only needed on Armbian
+sudo cp /boot/orangepiEnv.txt /boot/armbianEnv.txt
 echo fbtft | sudo tee /etc/modules-load.d/fbtft.conf
 
 # Blacklist the driver that uses Direct Rendering Manager so it doesn't conflict
-echo "blacklist ili8486" | tee /etc/modprobe.d/blacklist-ili9486.conf
+echo "blacklist ili9486" | tee /etc/modprobe.d/blacklist-ili9486.conf
 
 reboot
 
