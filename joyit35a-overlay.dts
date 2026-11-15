@@ -7,7 +7,7 @@
         __overlay__ {
             status = "okay";
             pinctrl-names = "default";
-            pinctrl-0 = <&spi1_pins>; /* PH6=CLK PH7=MOSI PH8=MISO */
+            pinctrl-0 = <&spi1_pins>, <&spi1_cs1_pin>; /* PH6=CLK PH7=MOSI PH8=MISO PH9=CS1 */
 	    cs-gpios = <&pio 7 5 0>; /*PH5=CS0 PH9=CS1*/
             ili9486: ili9486@1 {
                 compatible = "ilitek,ili9486";
@@ -30,9 +30,9 @@
                 reg = <1>;
                 pinctrl-names = "default";
                 spi-max-frequency = <2000000>;
-                interrupts = <7 2 1>; /* PH2 - IRQ */
+                interrupts = <7 2 2>; /* PH2 - IRQ, falling edge (PENIRQ is active-low) */
                 interrupt-parent = <&pio>;
-                pendown-gpio = <&pio 7 2 0>; /* PH2 */
+                pendown-gpio = <&pio 7 2 1>; /* PH2, GPIO_ACTIVE_LOW */
                 
                 /* OPTIONS */
                 ti,keep-vref-on = <1>;
