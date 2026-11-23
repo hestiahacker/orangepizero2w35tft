@@ -1,0 +1,26 @@
+#!/bin/sh
+# ~user/.xinitrc
+
+# no screen blanking
+xset s off -dpms s noblank
+
+# window manager only; no panel, no desktop, no file manager
+matchbox-window-manager -use_titlebar no -use_desktop_mode plain &
+
+# the only application
+exec chromium \
+  --kiosk \
+  --ozone-platform=x11 \
+  --disable-gpu \
+  --no-first-run \
+  --no-default-browser-check \
+  --noerrdialogs \
+  --disable-infobars \
+  --disable-session-crashed-bubble \
+  --hide-crash-restore-bubble \
+  --disable-translate \
+  --disable-features=TranslateUI \
+  --disable-component-update \
+  --password-store=basic \
+  --user-data-dir="$HOME/.config/chromium-kiosk" \
+  "https://ddg.gg/"
