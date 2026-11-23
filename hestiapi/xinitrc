@@ -4,6 +4,9 @@
 # no screen blanking
 xset s off -dpms s noblank
 
+# hide the mouse cursor
+unclutter -idle 1 &
+
 # window manager only; no panel, no desktop, no file manager
 matchbox-window-manager -use_titlebar no -use_desktop_mode plain &
 
