@@ -51,7 +51,7 @@ apt install -y xinit xserver-xorg xserver-xorg-video-fbdev x11-xserver-utils mat
 # Configure OpenHAB
 cd hestia-touch-openhab
 python3 tools/build_v5.py --gpio-board orangepi-zero2w
-openhab-cli restore v5/hestia-openhab-v5.zip
+echo "y" | openhab-cli restore v5/hestia-openhab-v5.zip
 unzip -oq v5/hestia-openhab-v5.zip -d /tmp/hestia 'home/*' 'setup/*'
 /tmp/hestia/setup/install.sh
 systemctl enable openhab
