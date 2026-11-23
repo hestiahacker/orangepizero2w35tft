@@ -1,0 +1,2 @@
+# /etc/udev/rules.d/99-framebuffer-lcd.rules
+SUBSYSTEM=="graphics", KERNEL=="fb*", ATTR{name}=="fb_ili9486", SYMLINK+="fb-lcd"

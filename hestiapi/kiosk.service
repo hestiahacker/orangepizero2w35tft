@@ -12,6 +12,9 @@ StandardInput=tty
 StandardOutput=journal
 StandardError=journal
 Environment=XDG_SESSION_TYPE=x11
+# Make sure the xorg config points to the correct device...
+ExecStartPre=+/usr/local/sbin/set-kiosk-framebuffer
+# ...before starting X
 ExecStart=/usr/bin/startx -- :0 vt1
 Restart=always
 RestartSec=2

@@ -1,0 +1,28 @@
+#!/bin/sh
+set -eu
+
+# It'd be great if we could just use the link we create with udev rules in the
+# X config, but unfortunately, xorg uses the device name when it is building
+# the path for the /sys/class/graphics/fb-lcd/... path. That doesn't exist.
+# That's why we have to update the configuration file just before starting X.
+# We look at where that symlink points and then hard code the real device into
+# the X config.
+
+config=/etc/X11/xorg.conf.d/20-kiosk.conf
+target=$(readlink -e /dev/fb-lcd) || {
+    echo "/dev/fb-lcd is missing or broken" >&2
+    exit 1
+}
+
+case "$target" in
+    /dev/fb[0-9]*) ;;
+    *)
+        echo "Unexpected framebuffer target: $target" >&2
+        exit 1
+        ;;
+esac
+
+tmp=$(mktemp)
+sed "s|\(^ *Option *\"fbdev\" \"\)[^\"]*\(.*\)|\\1$target\\2|" "$config" > $tmp
+install -m 0644 "$tmp" "$config"
+rm -f "$tmp"

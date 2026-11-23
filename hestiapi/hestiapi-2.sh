@@ -9,10 +9,16 @@ script_dir=$(CDPATH= cd -P "$(dirname "$0")" && pwd) || exit 1
 #./earth 
 #cd -
 
+# Ensure we have a stable device name for the LCD screen
+cp $script_dir/99-framebuffer-lcd.rules /etc/udev/rules.d/
+udevadm control --reload-rules
+udevadm trigger --subsystem-match=graphics
+
 # Configure X to start as a systemd service on boot
 cp $script_dir/20-kiosk.conf /etc/X11/xorg.conf.d/
 cp $script_dir/xinitrc ~pi/.xinitrc
 chown pi:pi ~pi/.xinitrc 
+cp $script_dir/set-kiosk-framebuffer /usr/local/sbin/set-kiosk-framebuffer
 cp $script_dir/kiosk.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl disable getty@tty1
