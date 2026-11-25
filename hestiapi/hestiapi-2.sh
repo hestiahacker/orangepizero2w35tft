@@ -36,7 +36,6 @@ if [ ! -d hestia-touch-openhab ]; then
 fi
 cd hestia-touch-openhab/
 git checkout ONE-bookworm
-# Need to reboot before you'll have access to the SPI bus
 python3 home/pi/scripts/bme280.py
 cd ..
 
@@ -61,6 +60,15 @@ echo "y" | openhab-cli restore v5/hestia-openhab-v5.zip
 unzip -oq v5/hestia-openhab-v5.zip -d /tmp/hestia 'home/*' 'setup/*'
 /tmp/hestia/setup/install.sh
 systemctl enable openhab
+cd ..
+
+# Set up turnkey so people can set up their wifi
+if [ ! -d raspberry-pi-turnkey ]; then
+	git clone https://github.com/hestiahacker/raspberry-pi-turnkey.git
+fi
+cd raspberry-pi-turnkey
+./setup-turnkey.sh wlan0 --no-ap-scan
+cd ..
 
 # We're all done. Reboot to see everything come up automatically
 shutdown -r now
