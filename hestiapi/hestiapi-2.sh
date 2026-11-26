@@ -63,10 +63,10 @@ systemctl enable openhab
 cd ..
 
 # Set up turnkey so people can set up their wifi
-if [ ! -d /home/pi/script/raspberry-pi-turnkey ]; then
-	git clone https://github.com/hestiahacker/raspberry-pi-turnkey.git /home/pi/script/raspberry-pi-turnkey
+if [ ! -d /home/pi/scripts/raspberry-pi-turnkey ]; then
+	git clone https://github.com/hestiahacker/raspberry-pi-turnkey.git /home/pi/scripts/raspberry-pi-turnkey
 fi
-cd  /home/pi/script/raspberry-pi-turnkey
+cd  /home/pi/scripts/raspberry-pi-turnkey
 ./setup-turnkey.sh wlan0 --no-ap-scan
 cd ..
 
