@@ -60,6 +60,11 @@ echo "y" | openhab-cli restore v5/hestia-openhab-v5.zip
 unzip -oq v5/hestia-openhab-v5.zip -d /tmp/hestia 'home/*' 'setup/*'
 /tmp/hestia/setup/install.sh
 systemctl enable openhab
+
+# Extract the add-ons so we don't have to do it on first boot (which previously
+# caused a race condition).
+install -m 0755 "$script_dir/openhab-addons-prestage.sh" /usr/local/sbin/openhab-addons-prestage.sh
+/usr/local/sbin/openhab-addons-prestage.sh
 cd ..
 
 # Set up turnkey so people can set up their wifi
