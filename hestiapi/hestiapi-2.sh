@@ -45,7 +45,7 @@ curl -fsSL "https://openhab.jfrog.io/artifactory/api/gpg/key/public" | gpg --dea
 chmod 644 /usr/share/keyrings/openhab.gpg
 echo 'deb [signed-by=/usr/share/keyrings/openhab.gpg] https://openhab.jfrog.io/artifactory/openhab-linuxpkg stable main' > /etc/apt/sources.list.d/openhab.list
 apt update
-apt install -y openjdk-21-jre-headless openhab
+apt install -y openjdk-21-jre-headless openhab openhab-addons
 
 # Install other software used by our configuration of OpenHAB
 apt install -y mosquitto mosquitto-clients python3 python3-smbus i2c-tools zip unzip curl wget iputils-ping sudo
