@@ -70,5 +70,12 @@ cd  /home/pi/scripts/raspberry-pi-turnkey
 ./setup-turnkey.sh wlan0 --no-ap-scan
 cd ..
 
-# We're all done. Reboot to see everything come up automatically
-shutdown -r now
+# Cleanup and shut down
+if [ -f /home/pi/scripts/raspberry-pi-turnkey/ap_ssids.txt ]; then
+	shred /home/pi/scripts/raspberry-pi-turnkey/ap_ssids.txt
+fi
+rm -fR /root/orangepi-build /root/orangepizero2w35tft /root/hestia-touch-openhab
+history -c
+
+# We shut down here so an image can be made of this SD card before its first boot
+shutdown -h now
