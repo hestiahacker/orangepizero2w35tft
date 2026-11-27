@@ -41,4 +41,5 @@ trap 'rm -rf "$tmp_dir"' EXIT
 unzip -q "$KAR_DIR/$kar_file" 'repository/*' -d "$tmp_dir"
 cp -a "$tmp_dir/repository/." "$dest/"
 printf 'mvn:org.openhab.distro/openhab-addons/%s/xml/features\n' "$version" > "$dest/features.cfg"
-chown -R openhab:openhab "$dest"
+# Make sure the tmp directory and everything in it have the right permissions
+chown -R openhab:openhab "$DATA_KAR_DIR/.."
